@@ -1,0 +1,204 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head>
+<meta charset="UTF-8">
+<title>Resume - Andrii Semeniuk</title>
+
+<style>
+body { 
+font-family: Arial, sans-serif; 
+background-color: #004080;     
+color: white;                  
+transition: background-color 0.3s, color 0.3s;
+} 
+
+.resume { 
+width: 700px; 
+background-color: #0056b3; 
+padding: 30px; 
+margin: 50px auto; 
+border-radius: 10px; 
+box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3); 
+} 
+
+h1 { 
+font-size: 32px; 
+margin-bottom: 5px; 
+} 
+
+h2 
+font-size: 20px; 
+border-bottom: 2px solid orange; 
+padding-bottom: 5px; 
+} 
+
+p, a { 
+font-size: 16px; 
+line-height: 1.5; 
+} 
+
+a { 
+color: orange; 
+text-decoration: none; 
+font-weight: bold; 
+} 
+
+ul { 
+padding-left: 20px; 
+} 
+
+li { 
+margin-bottom: 5px; 
+} 
+
+.dark-theme { 
+background-color: #111; 
+color: #eee; 
+} 
+
+.dark-theme .resume { 
+background-color: #222; 
+} 
+
+#footer-info { 
+text-align: center; 
+margin-top: 30px; 
+font-size: 14px; 
+} 
+
+#feedback-modal { 
+display: none; 
+position: fixed; 
+top: 20%; 
+left: 50%; 
+transform: translateX(-50%); 
+background-color: #0056b3; 
+padding: 20px; 
+border-radius: 10px; 
+z-index: 1000; 
+box-shadow: 0 0 20px black; 
+} 
+
+#feedback-modal input,
+#feedback-modal textarea,
+#feedback-modal button { 
+display: block; 
+width: 100%; 
+margin: 5px 0; 
+padding: 8px; 
+border: none; 
+border-radius: 5px; 
+} 
+
+button.theme-toggle { 
+position: fixed; 
+top: 10px; 
+right: 10px; 
+padding: 8px 12px; 
+background: orange; 
+border: none; 
+border-radius: 5px; 
+cursor: pointer; 
+font-weight: bold; 
+} 
+</style>
+</head>
+<body> 
+
+
+<button class="theme-toggle" onclick="toggleTheme()">Перемкнути тему</button>
+
+
+<div class="resume"> 
+
+<h1>Andrii<br>Semeniuk</h1> 
+
+<h2>Developer</h2> 
+
+<h2>Objective</h2> 
+<p>To obtain a challenging and highly paid web developer position where my skills and experience in web development will be utilized at the highest level.</p> 
+
+<h2>Education</h2> 
+<a href="https://lpnu.ua/"><strong>Lviv Polytechnic National University</strong></a> 
+<p>Website development</p> 
+<p>Web programming</p> 
+
+<h2>Contact</h2> 
+<p>UkraineLviv, Lviv</p> 
+<p>0964261523</p> 
+<p>@andrii.semeniuk.kb.2020@lpnu.ua</p> 
+
+<h2>Experience</h2>
+<ul> 
+<li>Brander</li>
+<li>Promodex</li>
+<li>Linecore</li>
+</ul>
+
+</div> 
+
+
+<div id="feedback-modal"> 
+<form action="https://formspree.io/f/mwplyzav" method="POST"> 
+
+<input type="text" name="name" placeholder="Ім’я" required> 
+<input type="email" name="email" placeholder="Email" required> 
+<input type="tel" name="phone" placeholder="Номер телефону"> 
+<textarea name="message" placeholder="Ваше повідомлення"></textarea> 
+<button type="submit">Відправити</button> 
+
+</form> 
+</div> 
+
+<footer id="footer-info"></footer> 
+
+<script> 
+
+
+const info = {
+userAgent: navigator.userAgent,   
+platform: navigator.platform,    
+language: navigator.language      
+};
+
+
+localStorage.setItem("systemInfo", JSON.stringify(info));
+
+
+const footer = document.getElementById("footer-info");
+const savedInfo = JSON.parse(localStorage.getItem("systemInfo")); 
+footer.innerText = `Браузер: ${savedInfo.userAgent}, Платформа: ${savedInfo.platform}, Мова: ${savedInfo.language}`; 
+
+
+fetch('https://jsonplaceholder.typicode.com/posts/1/comments') 
+.then(res => res.json()) 
+.then(data => {
+const container = document.getElementById("comments"); 
+data.forEach(comment => { 
+const p = document.createElement("p"); 
+p.innerText = `${comment.name}: ${comment.body}`; 
+container.appendChild(p); 
+});
+});
+
+
+setTimeout(() => {
+document.getElementById("feedback-modal").style.display = "block"; 
+}, 60000); 
+
+
+function toggleTheme() {
+document.body.classList.toggle("dark-theme"); 
+}
+
+
+const hour = new Date().getHours(); 
+if (hour >= 21 || hour < 7) {
+document.body.classList.add("dark-theme"); 
+}
+
+</script> 
+
+</body> 
+
+</html>
